@@ -1,0 +1,29 @@
+.header {
+    height: 50px;
+    background-color: lightgray;
+    display: grid;
+}
+
+.main {
+    background-color: aqua;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.counterContainer {
+    display: grid;
+    place-items: center;
+    font-size: 400px;
+    font-weight: bold;
+    text-shadow: 5px 5px 21px;
+    font-family: 'Moirai One';
+    cursor: pointer;
+    user-select: none;
+}
+
+.teamName {
+    font-size: 70px;
+    font-family: 'Varela Round';
+    text-shadow: none;
+}
