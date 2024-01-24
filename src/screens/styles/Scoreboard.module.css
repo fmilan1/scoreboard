@@ -5,25 +5,44 @@
 }
 
 .main {
-    background-color: aqua;
     flex-grow: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
 }
 
 .counterContainer {
-    display: grid;
-    place-items: center;
-    font-size: 400px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 50px;
+    font-size: 21vw;
     font-weight: bold;
-    text-shadow: 5px 5px 21px;
+    text-shadow: .3vw .3vw 1.1vw;
     font-family: 'Moirai One';
     cursor: pointer;
     user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    align-items: center;
 }
 
 .teamName {
-    font-size: 70px;
+    font-size: 3.65vw;
     font-family: 'Varela Round';
     text-shadow: none;
+}
+
+.slidingDigitContainer {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 25vw;
+    width: 70%;
+    /* border: 1px solid; */
+}
+
+.digitContainer {
+    width: 100%;
+    overflow: hidden;
+    line-height: 25vw;
+    text-align: center;
 }

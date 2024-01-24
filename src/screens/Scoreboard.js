@@ -8,18 +8,16 @@ function Scoreboard() {
 
     const { state } = useLocation();
 
-    useEffect(() => {
-        console.log(state.teamNames.team1Name);
-    }, [])
+
 
     return (
         <>
             <header className={styles.header}>
 
-
+                kecske
             </header>
             <main className={styles.main}>
-                
+
                 <Counter teamName={state.teamNames.team1Name} />
                 <Counter teamName={state.teamNames.team2Name} />
             </main>

@@ -8,4 +8,5 @@ body,
     flex-direction: column;
     font-family: 'Varela Round';
     margin: 0;
+    /* overflow: hidden; */
 }

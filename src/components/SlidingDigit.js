@@ -1,32 +1,58 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../screens/styles/Scoreboard.module.css';
-import { Spring, animated, useSpring } from '@react-spring/web'
+import { Spring, animated, useSpring, config } from '@react-spring/web'
 
 
-export default function SlidingDigit({ data, index }) {
+export default function SlidingDigit({ data, index, lineHeight, animate, direction}) {
 
-    const [shown, setShown] = useState(data[index]);
-    const [doAnimate, setDoAnimate] = useState(false)
+    const [shownIndex, setShownIndex] = useState(data[index]);
+    const [y, setY] = useState(-lineHeight);
+    const [loading, setLoading] = useState(true);
+    const [doAnimation, setDoAnimation] = useState(animate);
 
-    let springs;
     useEffect(() => {
-        // animated();
-        setDoAnimate(true)
+        if (loading) {
+            setLoading(false);
+            return;
+        }
+        setDoAnimation(animate);
+        slide();
     }, [index]);
+    
+    useEffect(() => {
+        setY(-lineHeight)
+    }, [lineHeight])
 
-    // function animated() {
-        springs = useSpring({
-            from: { y: 0 },
-            to: { y: 100 },
-        })
-    // }
+    
+    function slide() {
+        setY(direction > 0 ? 0 : -2 * lineHeight);
+    }
+
+    const springs = useSpring({
+        y: y,
+        onRest: (e) => {
+            if (e.finished) {
+                setShownIndex(index);
+                setDoAnimation(false);
+                setY(-lineHeight);
+            }
+        },
+        config: {
+            tension: doAnimation ? 500 : 0,
+        }
+
+    });
 
 
     return (
-        <animated.div
-            style={springs}
-        >
-            {data[index]}
-        </animated.div>
+        <div className={styles.digitContainer}>
+            <animated.div
+                style={springs}
+                className={styles.digit}
+            >
+                {(data[shownIndex + 1] != undefined ? data[shownIndex + 1] : data[0]) + '\n' + data[shownIndex] + '\n' + (data[shownIndex - 1] != undefined ? data[shownIndex - 1] : data[data.length - 1])}
+                {/* 1 */}
+            </animated.div>
+        </div>
     )
 }
