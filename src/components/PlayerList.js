@@ -19,7 +19,6 @@ export default function PlayerList({ data, team }) {
                         let tmp = [...prev];
                         tmp.splice(index, 1);
                         let textboxes = [document.querySelectorAll(`#name-${team}`), document.querySelectorAll(`#number-${team}`)];
-                        console.log(textboxes);
                         for (let i = 0; i < tmp.length; i++) {
                             textboxes[0][i].value = tmp[i].name;
                             textboxes[1][i].value = parseInt(tmp[i].number);
