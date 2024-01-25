@@ -19,6 +19,7 @@ export default function PlayerList({ data }) {
                         let tmp = [...prev];
                         tmp.splice(index, 1);
                         let textboxes = [document.querySelectorAll('#name'), document.querySelectorAll('#number')];
+                        console.log(data);
                         for (let i = 0; i < tmp.length; i++) {
                             textboxes[0][i].value = tmp[i].name;
                             textboxes[1][i].value = parseInt(tmp[i].number);
@@ -35,8 +36,8 @@ export default function PlayerList({ data }) {
 
     return (
         <div className={styles.listContainer} >
-            {listItems}
             <button type='button' disabled={players.length >= 20} onClick={() => setPlayers([...players, { name: '', number: '' }])}>Játékos hozzáadása</button>
+            {listItems}
         </div>
     )
 }
