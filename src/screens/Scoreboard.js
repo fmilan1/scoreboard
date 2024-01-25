@@ -1,8 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 import styles from './styles/Scoreboard.module.css';
-import Counter from "../components/Counter";
-import { useEffect } from "react";
-
+import Counter from '../components/Counter';
+import Timer from '../components/Timer';
 
 function Scoreboard() {
 
@@ -14,7 +13,7 @@ function Scoreboard() {
         <>
             <header className={styles.header}>
 
-                kecske
+                <Timer minutes={1} startTime={new Date()} />
             </header>
             <main className={styles.main}>
 

@@ -1,5 +1,5 @@
 .header {
-    height: 50px;
+    /* height: 84px; */
     background-color: lightgray;
     display: grid;
 }
@@ -10,7 +10,7 @@
 }
 
 .counterContainer {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,7 +31,6 @@
 }
 
 .slidingDigitContainer {
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 25vw;
@@ -44,4 +43,22 @@
     line-height: 25vw;
     text-align: center;
     font-family: 'Moirai One';
+}
+
+.timerContainer {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    font-size: clamp(30px, 3.13vw, 60px);
+    height: max-content;
+    padding-right: 10px;
+}
+
+.timeRemaining {
+    width: clamp(100px, 13vw, 250px);
+    text-align: right;
+}
+
+.overTime {
+    color: red;
 }
