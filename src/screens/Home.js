@@ -22,13 +22,13 @@ function Home() {
 
                         <div className={styles.column}>
                             <input type='text' defaultValue={teamNames[0]} className={styles.teamNameTextbox} onChange={(e) => setTeamNames([e.target.value, teamNames[1]])} />
-                            <PlayerList data={players} />
+                            <PlayerList data={players} team={1} />
 
                         </div>
 
                         <div className={styles.column}>
                             <input type='text' defaultValue={teamNames[1]} className={styles.teamNameTextbox} onChange={(e) => setTeamNames([teamNames[0], e.target.value])} />
-                            <PlayerList data={players} />
+                            <PlayerList data={players} team={2} />
                         </div>
                     </div>
                     <div className={styles.row}>
