@@ -13,7 +13,7 @@ function Scoreboard() {
         <>
             <header className={styles.header}>
 
-                <Timer minutes={1} startTime={new Date()} />
+                <Timer minutes={state.minutes} startTime={state.startTime} />
             </header>
             <main className={styles.main}>
 

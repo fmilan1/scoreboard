@@ -13,6 +13,7 @@ String.prototype.toMMSS = function () {
 }
 
 export default function Timer({ startTime, minutes }) {
+
     const calcEndTime = () => {
         let tmp = new Date(startTime);
         tmp.setMinutes(tmp.getMinutes() + minutes);
@@ -20,19 +21,16 @@ export default function Timer({ startTime, minutes }) {
     }
 
     const [endTime, setEndTime] = useState(calcEndTime());
-    const [timeLeftInSeconds, setTimeLeftInSeconds] = useState((endTime.getTime() - new Date().getTime()) / 1000);
+    const [timeLeftInSeconds, setTimeLeftInSeconds] = useState((endTime.getTime() - new Date().getTime()) / 1000 + 1);
+
 
     useEffect(() => {
-
-
         const timer = setInterval(() => {
-            if (startTime > new Date()) {
-                setTimeLeftInSeconds(Math.floor((endTime.getTime() - new Date().getTime()) / 1000 - minutes * 60))
+            if (startTime.getTime() > new Date().getTime()) {
+                setTimeLeftInSeconds(Math.floor((endTime.getTime() - new Date().getTime()) / 1000 - minutes * 60) + 1)
             }
             else {
-                if (new Date().toLocaleTimeString() == endTime.toLocaleTimeString()) {
-                }
-                setTimeLeftInSeconds((endTime.getTime() - new Date().getTime()) / 1000);
+                setTimeLeftInSeconds((endTime.getTime() - new Date().getTime()) / 1000 + 1);
             }
         }, 100);
 
@@ -56,12 +54,12 @@ export default function Timer({ startTime, minutes }) {
             <div
                 className={styles.gameMinute}
             >
-                {startTime <= new Date() ? calcGameMinute() + "'" : 'Kezdés: '}
+                {startTime.getTime() <= new Date().getTime() ? calcGameMinute() + "'" : 'Kezdés: '}
             </div>
             <div
                 className={styles.timeRemaining}
             >
-                {new Date() < endTime ? timeLeftInSeconds.toString().toMMSS() : calcAdditionalTime()}
+                {new Date().getTime() < endTime.getTime() ? timeLeftInSeconds.toString().toMMSS() : calcAdditionalTime()}
             </div>
         </div>
     )

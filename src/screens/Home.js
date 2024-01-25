@@ -31,8 +31,15 @@ function Home() {
                             <PlayerList data={players} team={2} />
                         </div>
                     </div>
+                    <div className={styles.settingsContainer}>
+                        <div className={styles.title}>Kezdés</div>
+                        {/* <input className={styles.input} type='time' id='startTime' defaultValue={new Date().toString().split(' ')[4].substring(0, 5)} /> */}
+                        <input className={styles.input} type='datetime-local' id='startTime' defaultValue={new Date(new Date().setMinutes(new Date().getMinutes() - new Date().getTimezoneOffset())).toISOString().slice(0, 16)} />
+                        <div className={styles.title}>Játékpercek</div>
+                        <input className={styles.input} type='number' id='minutes' defaultValue={100} />
+                    </div>
                     <div className={styles.row}>
-                        <button className={styles.button} onClick={() => navigate('/scoreboard', { state: { teamNames: { team1Name: teamNames[0], team2Name: teamNames[1] } } })}>
+                        <button className={styles.button} onClick={() => navigate('/scoreboard', { state: { teamNames: { team1Name: teamNames[0], team2Name: teamNames[1] }, startTime: new Date(document.querySelector('#startTime').value), minutes: parseInt(document.querySelector('#minutes').value) } })}>
                             Indítás
                         </button>
                     </div>

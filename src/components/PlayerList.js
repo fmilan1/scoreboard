@@ -35,7 +35,7 @@ export default function PlayerList({ data, team }) {
 
     return (
         <div className={styles.listContainer} >
-            <button className={styles.button} type='button' disabled={players.length >= 20} onClick={() => setPlayers([...players, { name: '', number: '' }])}>Játékos hozzáadása</button>
+            <button className={styles.input} type='button' disabled={players.length >= 20} onClick={() => setPlayers([...players, { name: '', number: '' }])}>Játékos hozzáadása</button>
             {listItems}
         </div>
     )
