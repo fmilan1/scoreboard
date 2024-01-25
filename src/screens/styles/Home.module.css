@@ -7,6 +7,9 @@
     place-items: center;
 }
 
+* {
+    /* min-width: 0; */
+}
 
 .main {
     flex-grow: 1;
@@ -30,7 +33,6 @@
 
 .teamNameTextbox {
     font-size: 20px;
-    font-family: 'Varela Round';
     padding-inline: 10px;
 
 }
@@ -48,10 +50,8 @@
 }
 
 .input {
-    min-width: 0;
     padding-inline: 5px;
     font-size: 15px;
-    font-family: 'Varela Round';
     border: 1px solid gray;
 }
 

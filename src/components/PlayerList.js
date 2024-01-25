@@ -26,7 +26,7 @@ export default function PlayerList({ data, team }) {
                         return [...tmp];
                     });
                 }}>
-                {index + 1}.
+                {index + 1}
             </button>
             <input className={styles.input} type="text" id={`name-${team}`} defaultValue={player.name} onChange={(e) => player.name = e.target.value} />
             <input className={styles.input} type="number" id={`number-${team}`} defaultValue={player.number} onChange={(e) => player.number = parseInt(e.target.value)} />
