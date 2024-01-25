@@ -32,7 +32,7 @@ function Home() {
                         </div>
                     </div>
                     <div className={styles.row}>
-                        <button onClick={() => navigate('/scoreboard', { state: { teamNames: { team1Name: teamNames[0], team2Name: teamNames[1] } } })}>
+                        <button className={styles.button} onClick={() => navigate('/scoreboard', { state: { teamNames: { team1Name: teamNames[0], team2Name: teamNames[1] } } })}>
                             Indítás
                         </button>
                     </div>

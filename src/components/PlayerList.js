@@ -8,7 +8,7 @@ export default function PlayerList({ data, team }) {
 
     const listItems = players.map((player, index) => (
         <>
-            <button className={styles.index}
+            <button className={`${styles.index} ${styles.button}`}
                 title="Játékos eltávolítása"
                 onMouseOver={() => setHoveredIdx(index)}
                 onMouseLeave={() => setHoveredIdx(null)}
@@ -35,7 +35,7 @@ export default function PlayerList({ data, team }) {
 
     return (
         <div className={styles.listContainer} >
-            <button type='button' disabled={players.length >= 20} onClick={() => setPlayers([...players, { name: '', number: '' }])}>Játékos hozzáadása</button>
+            <button className={styles.button} type='button' disabled={players.length >= 20} onClick={() => setPlayers([...players, { name: '', number: '' }])}>Játékos hozzáadása</button>
             {listItems}
         </div>
     )

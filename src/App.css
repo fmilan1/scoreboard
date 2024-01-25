@@ -6,9 +6,9 @@ body,
     display: flex;
     flex-direction: column;
     margin: 0;
+    font-family: 'Varela Round';
 }
 
 * {
-    font-family: 'Varela Round';
     min-width: 0;
 }
