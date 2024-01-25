@@ -22,6 +22,11 @@
     user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     align-items: center;
+    transition: .3s;
+}
+
+.counterContainer:hover {
+    font-size: 22vw;
 }
 
 .teamName {
