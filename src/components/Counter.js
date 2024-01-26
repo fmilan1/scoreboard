@@ -43,7 +43,7 @@ export default function Counter({ team }) {
         window.addEventListener('resize', () => {
             setLineHeight(document.body.clientWidth * 0.25);
         });
-    });
+    }, []);
 
     useEffect(() => {
         if (firstCall) return;
@@ -56,11 +56,7 @@ export default function Counter({ team }) {
 
     useEffect(() => {
         setFirstCall(false);
-    }, [])
-
-    function drag() {
-        alert('drag');
-    }
+    }, []);
 
     return (
         <div
