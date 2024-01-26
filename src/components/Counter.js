@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from '../screens/styles/Scoreboard.module.css'
 import SlidingDigit from './SlidingDigit'
 import BottomSheet from './BottomSheet';
+import { useSwipeable } from 'react-swipeable';
 
 export default function Counter({ team }) {
 
@@ -14,6 +15,29 @@ export default function Counter({ team }) {
     const [animate, setAnimate] = useState(true);
     const [dir, setDir] = useState(1);
     const [visibleBottomSheet, setVisibleBottomSheet] = useState(false);
+
+    const handlers = useSwipeable({
+        onSwiped: (e) => {
+            if (e.dir == 'Down') {
+                increasePoint();
+            }
+            else if (e.dir == 'Up') {
+                decreasePoint();
+            }
+        }
+    });
+
+    function increasePoint() {
+        if (visibleBottomSheet) return;
+        setDir(1);
+        setPoint(point + 1);
+    }
+
+    function decreasePoint() {
+        if (visibleBottomSheet || point == 0) return;
+        setDir(-1);
+        setPoint(point - 1);
+    }
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -40,23 +64,21 @@ export default function Counter({ team }) {
 
     return (
         <div
+            {...handlers}
             className={styles.counterContainer}
             onMouseDown={(e) => {
-                if (visibleBottomSheet) return;
                 setAnimate(true);
                 if (e.button == 2) {
                     if (point == 0) return;
-                    setDir(-1);
-                    setPoint(point - 1);
+                    decreasePoint();
                     return;
                 }
-                setDir(1);
-                setPoint(point + 1);
+                increasePoint();
             }}
             onWheel={(e) => {
                 if (visibleBottomSheet) return;
                 setAnimate(false);
-                e.deltaY > 0 ? ((point > 0) && setPoint(point - 1)) : setPoint(point + 1);
+                e.deltaY > 0 ? decreasePoint() : increasePoint();
 
             }}
         >
