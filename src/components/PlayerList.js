@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from '../screens/styles/Home.module.css';
 
-export default function PlayerList({ data, team }) {
+export default function PlayerList({ data, team, update }) {
 
-    const [players, setPlayers] = useState([...data]);
+    const [players, setPlayers] = useState(data);
     const [hoveredButtonIdx, setHoveredIdx] = useState(null);
 
-    const listItems = players.map((player, index) => (
+    // useEffect(() => {
+    //     console.log(players[team]);
+    // })
+
+    const listItems = players[team].map((player, index) => (
         <>
             <button className={`${styles.index} ${styles.button}`}
                 title="Játékos eltávolítása"
@@ -35,7 +39,15 @@ export default function PlayerList({ data, team }) {
 
     return (
         <div className={styles.listContainer} >
-            <button className={styles.input} type='button' disabled={players.length >= 20} onClick={() => setPlayers([...players, { name: '', number: '' }])}>Játékos hozzáadása</button>
+            <button className={styles.input} type='button' disabled={players[team].length >= 20}
+                onClick={() => {
+                    setPlayers(() => {
+                        let tmp = [...players];
+                        tmp[team].push({ name: '', number: '' });
+                        return tmp;
+                    });
+                    update(players);
+                }}>Játékos hozzáadása</button>
             {listItems}
         </div>
     )
