@@ -6,10 +6,6 @@ export default function PlayerList({ data, team, update }) {
     const [players, setPlayers] = useState(data);
     const [hoveredButtonIdx, setHoveredIdx] = useState(null);
 
-    // useEffect(() => {
-    //     console.log(players[team]);
-    // })
-
     const listItems = players[team].map((player, index) => (
         <>
             <button className={`${styles.index} ${styles.button}`}

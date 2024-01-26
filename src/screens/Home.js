@@ -11,10 +11,6 @@ function Home() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(players);
-    })
-
     function updatePlayers(data) {
         setPlayers(data);
     }

@@ -8,10 +8,6 @@ function Scoreboard() {
 
     const { state } = useLocation();
 
-    useEffect(() => {
-        console.log(state);
-    }, [])
-
     return (
         <>
             <header className={styles.header}>
