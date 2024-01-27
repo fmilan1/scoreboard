@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from '../screens/styles/Scoreboard.module.css';
-import { useSpring, animated } from "@react-spring/web";
 import { motion } from "framer-motion"
 
 
@@ -14,7 +13,7 @@ const variants = {
         bottom: 0,
     },
     down: {
-        bottom: '-100%'
+        bottom: '-100%',
     }
 }
 
@@ -23,13 +22,10 @@ export default function BottomSheet({ visible, players, hide }) {
     const [assistIndex, setAssistIndex] = useState(-1);
     const [scorerIndex, setScorerIndex] = useState(-1);
 
-
-
-
     useEffect(() => {
         setAssistIndex(-1);
         setScorerIndex(-1);
-    }, [visible])
+    }, [visible]);
 
     function playerList(type) {
         const listItems = players.map((player, index) => {
@@ -50,13 +46,11 @@ export default function BottomSheet({ visible, players, hide }) {
                     <span>{player.number}</span>
                     <span>{player.name}</span>
                 </button>
-            )
+            );
         });
 
         return listItems;
     }
-
-
 
     return (
         <motion.div
@@ -80,5 +74,5 @@ export default function BottomSheet({ visible, players, hide }) {
                 disabled={assistIndex == -1 || scorerIndex == -1}
             >Ok</button>
         </motion.div>
-    )
+    );
 }

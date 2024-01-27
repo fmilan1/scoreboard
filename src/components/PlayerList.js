@@ -1,50 +1,50 @@
 import React, { useEffect, useState } from "react";
 import styles from '../screens/styles/Home.module.css';
 
-export default function PlayerList({ data, team, update }) {
+export default function PlayerList({ team, update }) {
 
-    const [players, setPlayers] = useState(data);
-    const [hoveredButtonIdx, setHoveredIdx] = useState(null);
+    const [thisTeam, setThisTeam] = useState(team);
 
-    const listItems = players[team].map((player, index) => (
+    useEffect(() => {
+        update(thisTeam);
+    }, [thisTeam]);
+
+    const listItems = thisTeam.players.map((player, index) => (
         <>
             <button className={`${styles.index} ${styles.button}`}
                 title="Játékos eltávolítása"
-                onMouseOver={() => setHoveredIdx(index)}
-                onMouseLeave={() => setHoveredIdx(null)}
-
 
                 onClick={() => {
-                    setPlayers((prev) => {
-                        let tmp = [...prev];
+                    setThisTeam((prev) => {
+
+                        let tmp = [...prev.players];
                         tmp.splice(index, 1);
-                        let textboxes = [document.querySelectorAll(`#name-${team}`), document.querySelectorAll(`#number-${team}`)];
+                        let textboxes = [document.querySelectorAll(`#name-${thisTeam.id}`), document.querySelectorAll(`#number-${thisTeam.id}`)];
+                        console.log(tmp);
                         for (let i = 0; i < tmp.length; i++) {
                             textboxes[0][i].value = tmp[i].name;
                             textboxes[1][i].value = parseInt(tmp[i].number);
                         }
-                        return [...tmp];
+
+                        return { id: thisTeam.id, name: thisTeam.name, players: [...tmp] };
                     });
                 }}>
                 {index + 1}
             </button>
-            <input className={styles.input} type="text" id={`name-${team}`} defaultValue={player.name} onChange={(e) => player.name = e.target.value} />
-            <input className={styles.input} type="number" id={`number-${team}`} defaultValue={player.number} onChange={(e) => player.number = parseInt(e.target.value)} />
+            <input className={styles.input} type="text" id={`name-${thisTeam.id}`} defaultValue={player.name} onChange={(e) => player.name = e.target.value} />
+            <input className={styles.input} type="number" id={`number-${thisTeam.id}`} defaultValue={player.number} onChange={(e) => player.number = parseInt(e.target.value)} />
         </>
     ));
 
     return (
         <div className={styles.listContainer} >
-            <button className={styles.input} type='button' disabled={players[team].length >= 20}
+            <button className={styles.input} type='button' disabled={thisTeam.players.length >= 20}
                 onClick={() => {
-                    setPlayers(() => {
-                        let tmp = [...players];
-                        tmp[team].push({ name: '', number: '' });
-                        return tmp;
+                    setThisTeam(() => {
+                        return { id: thisTeam.id, name: thisTeam.name, players: [...thisTeam.players, { name: '', number: '' }] }
                     });
-                    update(players);
                 }}>Játékos hozzáadása</button>
             {listItems}
         </div>
-    )
+    );
 }

@@ -6,10 +6,6 @@ import Scoreboard from './screens/Scoreboard';
 
 function App() {
 
-    const [teamNames, setTeamName] = useState(['Csapat 1', 'Csapat 2']);
-    const [players, setPlayers] = useState([{ name: 'Kiss Pista', number: 42 }]);
-
-
     document.addEventListener('contextmenu', event => event.preventDefault());
 
 
