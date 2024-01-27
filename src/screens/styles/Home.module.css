@@ -31,9 +31,17 @@
     font-family: 'Varela Round';
 }
 
-
 .listContainer {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.listContainer > button {
+    height: 30px;
+}
+
+.listContainer > div {
     display: grid;
     grid-template-columns: .12fr .68fr .2fr;
     grid-auto-rows: 30px;

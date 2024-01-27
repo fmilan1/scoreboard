@@ -10,7 +10,7 @@ export default function PlayerList({ team, update }) {
     }, [thisTeam]);
 
     const listItems = thisTeam.players.map((player, index) => (
-        <>
+        <div className={styles.listItem} key={index}>
             <button className={`${styles.index} ${styles.button}`}
                 title="Játékos eltávolítása"
 
@@ -27,7 +27,7 @@ export default function PlayerList({ team, update }) {
                         }
                         return { id: thisTeam.id, name: thisTeam.name, players: [...tmp] };
                     });
-                    
+
                 }}>
                 {index + 1}
             </button>
@@ -39,7 +39,7 @@ export default function PlayerList({ team, update }) {
                 player.number = parseInt(e.target.value)
                 update(thisTeam);
             }} />
-        </>
+        </div>
     ));
 
     return (
