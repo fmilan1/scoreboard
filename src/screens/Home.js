@@ -38,6 +38,7 @@ class Home extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log('update');
         localStorage.setItem('state', JSON.stringify(this.state));
     }
 
@@ -52,12 +53,42 @@ class Home extends React.Component {
                         <div className={styles.row} >
 
                             <div className={styles.column}>
-                                <input type='text' defaultValue={this.state.teams.team1.name} className={styles.teamNameTextbox} onChange={(e) => this.state.teams.team1.name = e.target.value} />
+                                <input type='text' defaultValue={this.state.teams.team1.name} className={styles.teamNameTextbox} onChange={(e) => {
+                                    this.setState({
+                                        teams: {
+                                            team1: {
+                                                id: 0,
+                                                name: e.target.value,
+                                                players: this.state.teams.team1.players
+                                            },
+                                            team2: {
+                                                id: 1,
+                                                name: this.state.teams.team2.name,
+                                                players: this.state.teams.team2.players
+                                            }
+                                        }
+                                    });
+                                }} />
                                 <PlayerList team={this.state.teams.team1} update={this.updateTeam} />
                             </div>
 
                             <div className={styles.column}>
-                                <input type='text' defaultValue={this.state.teams.team2.name} className={styles.teamNameTextbox} onChange={(e) => this.state.teams.team2.name = e.target.value} />
+                                <input type='text' defaultValue={this.state.teams.team2.name} className={styles.teamNameTextbox} onChange={(e) => {
+                                    this.setState({
+                                        teams: {
+                                            team1: {
+                                                id: 0,
+                                                name: this.state.teams.team1.name,
+                                                players: this.state.teams.team1.players
+                                            },
+                                            team2: {
+                                                id: 1,
+                                                name: e.target.value,
+                                                players: this.state.teams.team2.players
+                                            }
+                                        }
+                                    });
+                                }} />
                                 <PlayerList team={this.state.teams.team2} update={this.updateTeam} />
                             </div>
                         </div>
