@@ -38,7 +38,6 @@ class Home extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('update');
         localStorage.setItem('state', JSON.stringify(this.state));
     }
 
