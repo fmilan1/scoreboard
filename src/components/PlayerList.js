@@ -25,14 +25,20 @@ export default function PlayerList({ team, update }) {
                             textboxes[0][i].value = tmp[i].name;
                             textboxes[1][i].value = parseInt(tmp[i].number);
                         }
-
                         return { id: thisTeam.id, name: thisTeam.name, players: [...tmp] };
                     });
+                    
                 }}>
                 {index + 1}
             </button>
-            <input className={styles.input} type="text" id={`name-${thisTeam.id}`} defaultValue={player.name} onChange={(e) => player.name = e.target.value} />
-            <input className={styles.input} type="number" id={`number-${thisTeam.id}`} defaultValue={player.number} onChange={(e) => player.number = parseInt(e.target.value)} />
+            <input className={styles.input} type="text" id={`name-${thisTeam.id}`} defaultValue={player.name} onChange={(e) => {
+                player.name = e.target.value;
+                update(thisTeam);
+            }} />
+            <input className={styles.input} type="number" id={`number-${thisTeam.id}`} defaultValue={player.number} onChange={(e) => {
+                player.number = parseInt(e.target.value)
+                update(thisTeam);
+            }} />
         </>
     ));
 

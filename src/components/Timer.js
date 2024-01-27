@@ -25,8 +25,9 @@ export default function Timer({ startTime, minutes }) {
 
 
     useEffect(() => {
+        console.log(minutes, startTime);
         const timer = setInterval(() => {
-            if (startTime.getTime() > new Date().getTime()) {
+            if (startTime > new Date().getTime()) {
                 setTimeLeftInSeconds(Math.floor((endTime.getTime() - new Date().getTime()) / 1000 - minutes * 60) + 1)
             }
             else {
@@ -54,7 +55,7 @@ export default function Timer({ startTime, minutes }) {
             <div
                 className={styles.gameMinute}
             >
-                {startTime.getTime() <= new Date().getTime() ? calcGameMinute() + "'" : 'Kezdés: '}
+                {startTime <= new Date().getTime() ? calcGameMinute() + "'" : 'Kezdés: '}
             </div>
             <div
                 className={styles.timeRemaining}
