@@ -20,7 +20,6 @@ export default function PlayerList({ team, update }) {
                         let tmp = [...prev.players];
                         tmp.splice(index, 1);
                         let textboxes = [document.querySelectorAll(`#name-${thisTeam.id}`), document.querySelectorAll(`#number-${thisTeam.id}`)];
-                        console.log(tmp);
                         for (let i = 0; i < tmp.length; i++) {
                             textboxes[0][i].value = tmp[i].name;
                             textboxes[1][i].value = parseInt(tmp[i].number);

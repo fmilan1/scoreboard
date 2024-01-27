@@ -25,7 +25,6 @@ export default function Timer({ startTime, minutes }) {
 
 
     useEffect(() => {
-        console.log(minutes, startTime);
         const timer = setInterval(() => {
             if (startTime > new Date().getTime()) {
                 setTimeLeftInSeconds(Math.floor((endTime.getTime() - new Date().getTime()) / 1000 - minutes * 60) + 1)
