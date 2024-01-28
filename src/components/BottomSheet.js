@@ -32,6 +32,7 @@ export default function BottomSheet({ visible, players, hide }) {
 
             return (
                 <button
+                    key={index}
                     onClick={() => {
                         if (type == PlayerType.Assister) {
                             setAssistIndex(index);
