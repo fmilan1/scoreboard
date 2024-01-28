@@ -32,9 +32,9 @@ class Home extends React.Component {
                         players: [],
                     }
                 },
-                startTime: new Date(new Date().setMinutes(new Date().getMinutes() + 1, 0, 0)).getTime(),
                 minutes: 100,
             });
+        this.setState({ startTime: new Date(new Date().setMinutes(new Date().getMinutes() + 1, 0, 0)).getTime() })
     }
 
     componentDidUpdate() {
