@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './screens/Home';
 import './App.css'
 import Scoreboard from './screens/Scoreboard';
+import NotFound from './screens/NotFound';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
             <Routes>
                 <Route exact path='/' Component={Home} />
                 <Route exact path='/scoreboard' Component={Scoreboard} />
+                <Route path='*' Component={NotFound} />
             </Routes>
         </BrowserRouter>
     );
