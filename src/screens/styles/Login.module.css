@@ -1,0 +1,23 @@
+.mainContainer {
+    display: grid;
+    min-height: 100dvh;
+}
+
+.loginProviderContainer {
+    text-align: center;
+    padding: 50px;
+    display: grid;
+    grid-auto-rows: 70px;
+    justify-items: center;
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0;
+}
+
+@media only screen and (max-width: 480px) {
+    .loginProviderContainer {
+        grid-template-columns: 200px;
+    }
+}

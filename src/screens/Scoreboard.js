@@ -13,8 +13,8 @@ function Scoreboard() {
                 <Timer minutes={state.minutes} startTime={state.startTime} />
             </header>
             <main className={styles.main}>
-                <Counter team={state.teams.team1} />
-                <Counter team={state.teams.team2} />
+                <Counter team={state.team1} />
+                <Counter team={state.team2} />
             </main>
         </>
     );

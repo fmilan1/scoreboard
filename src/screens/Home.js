@@ -1,119 +1,125 @@
 import styles from './styles/Home.module.css'
 import PlayerList from '../components/PlayerList';
-import { Link } from 'react-router-dom'
-import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
 
-class Home extends React.Component {
+export default function Home() {
 
-    constructor() {
-        super();
-        this.state = null;
-        this.updateTeam = this.updateTeam.bind(this);
+    const navigate = useNavigate();
+
+    const [team1, setTeam1] = useState(
+        JSON.parse(localStorage.getItem('team1')) == null ?
+            {
+                id: 0,
+                name: 'Csapat 1',
+                players: [],
+            } :
+            JSON.parse(localStorage.getItem('team1'))
+    );
+
+    const [team2, setTeam2] = useState(
+        JSON.parse(localStorage.getItem('team2')) == null ?
+            {
+                id: 1,
+                name: 'Csapat 2',
+                players: [],
+            } :
+            JSON.parse(localStorage.getItem('team2'))
+    );
+
+    const [minutes, setMinutes] = useState(
+        localStorage.getItem('minutes') ? parseInt(localStorage.getItem('minutes')) : 100
+    );
+
+    const [startTime, setStartTime] = useState(
+        new Date(new Date().setMinutes(new Date().getMinutes() + 1, 0, 0)).getTime()
+    );
+
+    function updateTeam(updatedTeam) {
+        if (updatedTeam.id == team1.id) {
+            setTeam1(updatedTeam);
+        }
+        else if (updatedTeam.id == team2.id) {
+            setTeam2(updatedTeam);
+        }
+        saveState();
     }
 
-    updateTeam(updatedTeam) {
-        this.setState({ teams: { team1: updatedTeam.id == this.state.teams.team1.id ? updatedTeam : this.state.teams.team1, team2: updatedTeam.id == this.state.teams.team2.id ? updatedTeam : this.state.teams.team2 } });
+    useEffect(() => {
+        saveState();
+    });
+
+
+    function saveState() {
+        localStorage.setItem('team1', JSON.stringify(team1));
+        localStorage.setItem('team2', JSON.stringify(team2));
+        localStorage.setItem('minutes', minutes);
     }
 
-    componentWillMount() {
-        const load = JSON.parse(localStorage.getItem('state'));
-        if (load != null) this.setState(load);
-        else
-            this.setState({
-                teams: {
-                    team1: {
-                        id: 0,
-                        name: 'Csapat 1',
-                        players: [],
-                    },
-                    team2: {
-                        id: 1,
-                        name: 'Csapat 2',
-                        players: [],
-                    }
-                },
-                minutes: 100,
-            });
-        this.setState({ startTime: new Date(new Date().setMinutes(new Date().getMinutes() + 1, 0, 0)).getTime() })
-    }
+    return (
+        <>
+            <header className={styles.header}>
+                <div>Új pontszámláló beállítása</div>
+                <button onClick={() => {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    navigate('/login/');
+                }}>Kijenlentkezés</button>
+            </header>
+            <main className={styles.main} >
+                <div className={styles.mainContainer} >
+                    <div className={styles.row} >
 
-    componentDidUpdate() {
-        localStorage.setItem('state', JSON.stringify(this.state));
-    }
-
-    render() {
-        return (
-            <>
-                <header className={styles.header}>
-                    Új pontszámláló beállítása
-                </header>
-                <main className={styles.main} >
-                    <div className={styles.mainContainer} >
-                        <div className={styles.row} >
-
-                            <div className={styles.column}>
-                                <input type='text' defaultValue={this.state.teams.team1.name} className={styles.teamNameTextbox} onChange={(e) => {
-                                    this.setState({
-                                        teams: {
-                                            team1: {
-                                                id: 0,
-                                                name: e.target.value,
-                                                players: this.state.teams.team1.players
-                                            },
-                                            team2: {
-                                                id: 1,
-                                                name: this.state.teams.team2.name,
-                                                players: this.state.teams.team2.players
-                                            }
-                                        }
-                                    });
-                                }} />
-                                <PlayerList team={this.state.teams.team1} update={this.updateTeam} />
-                            </div>
-
-                            <div className={styles.column}>
-                                <input type='text' defaultValue={this.state.teams.team2.name} className={styles.teamNameTextbox} onChange={(e) => {
-                                    this.setState({
-                                        teams: {
-                                            team1: {
-                                                id: 0,
-                                                name: this.state.teams.team1.name,
-                                                players: this.state.teams.team1.players
-                                            },
-                                            team2: {
-                                                id: 1,
-                                                name: e.target.value,
-                                                players: this.state.teams.team2.players
-                                            }
-                                        }
-                                    });
-                                }} />
-                                <PlayerList team={this.state.teams.team2} update={this.updateTeam} />
-                            </div>
-                        </div>
-                        <div className={styles.settingsContainer}>
-                            <div className={styles.title}>Kezdés</div>
-                            <input className={styles.input} type='datetime-local' id='startTime' defaultValue={new Date(this.state.startTime + 3600000).toISOString().slice(0, 16)} onChange={(e) => {
-                                this.setState({ startTime: new Date(e.target.value).getTime() })
+                        <div className={styles.column}>
+                            <input type='text' defaultValue={team1.name} className={styles.teamNameTextbox} onChange={(e) => {
+                                setTeam1({
+                                    id: 0,
+                                    name: e.target.value,
+                                    players: team1.players
+                                })
                             }} />
-                            <div className={styles.title}>Játékpercek</div>
-                            <input className={styles.input} type='number' id='minutes' defaultValue={this.state.minutes} onChange={(e) => this.setState({ minutes: parseInt(e.target.value) })} />
+                            <PlayerList team={team1} update={updateTeam} />
                         </div>
-                        <div className={styles.row}>
-                            <Link to='/scoreboard/' state={this.state}>
 
-                                <button className={styles.button} >
-                                    Indítás
-                                </button>
-                            </Link>
+                        <div className={styles.column}>
+                            <input type='text' defaultValue={team2.name} className={styles.teamNameTextbox} onChange={(e) => {
+                                setTeam2({
+                                    id: 1,
+                                    name: e.target.value,
+                                    players: team2.players
+                                })
+                            }} />
+                            <PlayerList team={team2} update={updateTeam} />
                         </div>
                     </div>
-                </main>
-            </>
-        );
-    }
+                    <div className={styles.settingsContainer}>
+                        <div className={styles.title}>Kezdés</div>
+                        <input className={styles.input} type='datetime-local' id='startTime' defaultValue={new Date(startTime + 3600000).toISOString().slice(0, 16)} onChange={(e) => {
+                            setStartTime(new Date(e.target.value).getTime());
+                        }} />
+                        <div className={styles.title}>Játékpercek</div>
+                        <input className={styles.input} type='number' id='minutes' defaultValue={minutes} onChange={(e) => setMinutes(parseInt(e.target.value))} />
+                    </div>
+                    <div className={styles.row}>
+                        <Link to='/scoreboard/' state={
+                            {
+                                team1,
+                                team2,
+                                minutes: minutes,
+                                startTime
+                            }
+                        } >
+
+                            <button className={styles.button} >
+                                Indítás
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </main>
+        </>
+    );
+
 
 
 }
-
-export default Home;
