@@ -1,23 +1,119 @@
+:root {
+    --gradient: linear-gradient(110deg, rgba(0, 255, 232, 1) 0%, rgba(255, 0, 160, 1) 100%);
+}
+
 .mainContainer {
     display: grid;
     min-height: 100dvh;
+    place-items: center;
+    background: var(--gradient);
 }
 
-.loginProviderContainer {
-    text-align: center;
-    padding: 50px;
+.outerContainer {
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 15px 0 white;
+    display: flex;
+    gap: 30px;
+    max-width: 400px;
+    margin-inline: 20px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.outerContainer>* {
+    transition: .2s;
+    min-width: 100%;
+}
+
+.slide>* {
+    transform: translateX(calc(-100% - 30px));
+}
+
+.loginProviderContainer>*:not(h3) {
+    height: 50px;
+    cursor: pointer;
+}
+
+.form {
     display: grid;
-    grid-auto-rows: 70px;
-    justify-items: center;
+}
+
+.formContainer {
     align-self: center;
     justify-self: center;
-    align-items: center;
-    border-radius: 20px;
-    box-shadow: 0 0 10px 0;
+    justify-items: center;
+    max-width: 280px;
 }
 
-@media only screen and (max-width: 480px) {
-    .loginProviderContainer {
-        grid-template-columns: 200px;
-    }
+.formContainer>* {
+    height: 40px;
+}
+
+.formContainer>.input {
+    margin-bottom: 40px;
+}
+
+.formContainer>button {
+    margin-bottom: 10px;
+}
+
+.input>input {
+    font-family: 'Varela Round';
+    font-size: 18px;
+    padding-left: 10px;
+    border: none;
+    background-color: transparent;
+    position: relative;
+    z-index: 1;
+    outline: none;
+    box-shadow: 0 2px 0 0 gray;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.placeHolder {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    z-index: -1;
+    transform: translateY(-100%);
+    transition: .2s;
+    color: gray;
+    height: 100%;
+}
+
+input:not(:placeholder-shown)~.placeHolder {
+    transform: translateY(-150%);
+    font-size: 10px;
+}
+
+.form button {
+    font-family: 'Varela Round';
+    width: 100%;
+    background: var(--gradient);
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.errorLabel {
+    color: red;
+}
+
+.switchButton {
+    cursor: pointer;
+    height: auto;
+    text-align: center;
+    color: gray;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.backButton {
+    aspect-ratio: 1;
+    cursor: pointer;
+    width: 20px;
+    fill: gray;
 }
