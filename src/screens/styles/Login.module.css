@@ -1,8 +1,5 @@
-:root {
-    --gradient: linear-gradient(110deg, rgba(0, 255, 232, 1) 0%, rgba(255, 0, 160, 1) 100%);
-}
-
 .mainContainer {
+    --gradient: linear-gradient(110deg, rgba(0, 255, 232, 1) 0%, rgba(255, 0, 160, 1) 100%);
     display: grid;
     min-height: 100dvh;
     place-items: center;

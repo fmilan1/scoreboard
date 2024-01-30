@@ -63,11 +63,6 @@ export default function NewScoreboard() {
         <>
             <header className={styles.header}>
                 <div>Új pontszámláló beállítása</div>
-                <button onClick={() => {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('token');
-                    navigate('/belepes/');
-                }}>Kijenlentkezés</button>
             </header>
             <main className={styles.main} >
                 <div className={styles.mainContainer} >
