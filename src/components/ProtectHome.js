@@ -6,6 +6,6 @@ export default function ProtectHome() {
     const token = localStorage.getItem('token');
 
     return (
-        token ? <Outlet /> : <Navigate to='/login/' />
+        token ? <Outlet /> : <Navigate to='/belepes/' />
     )
 }

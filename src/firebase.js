@@ -1,16 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from 'firebase/auth'
+import { getDatabase } from 'firebase/database';
 // TODO: Add SDKs for Firebase products that you want to use
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCRy_29B7J3a_7-REWb2kAdL62sfBerxso",
-    authDomain: "scoreboard-fb837.firebaseapp.com",
-    projectId: "scoreboard-fb837",
-    storageBucket: "scoreboard-fb837.appspot.com",
-    messagingSenderId: "271259284940",
-    appId: "1:271259284940:web:dd84abc00d5b40ba811969"
+    apiKey: "AIzaSyDUFtTaI2GuarO8UKsUJrEFG0tRRCnV7x8",
+    authDomain: "scoreboard-df5d8.firebaseapp.com",
+    projectId: "scoreboard-df5d8",
+    storageBucket: "scoreboard-df5d8.appspot.com",
+    messagingSenderId: "89526102771",
+    appId: "1:89526102771:web:8258483c1a38012ddda586",
+    databaseURL: "https://scoreboard-df5d8-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 // Initialize Firebase
@@ -20,3 +22,5 @@ export const auth = getAuth();
 export const googleAuthProvider = new GoogleAuthProvider();
 
 export default app;
+
+export const db = getDatabase(app);

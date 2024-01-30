@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from '../screens/styles/Home.module.css';
+import styles from '../screens/styles/NewScoreboard.module.css';
 
 export default function PlayerList({ team, update }) {
 

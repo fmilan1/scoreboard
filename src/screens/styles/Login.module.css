@@ -19,6 +19,8 @@
     margin-inline: 20px;
     overflow: hidden;
     background-color: white;
+    transition: .2s;
+    height: 400px;
 }
 
 .outerContainer>* {
@@ -28,6 +30,15 @@
 
 .slide>* {
     transform: translateX(calc(-100% - 30px));
+}
+
+.loginProviderContainer {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-template-columns: min-content;
+    justify-content: center;
+    row-gap: 20px;
+    text-align: center;
 }
 
 .loginProviderContainer>*:not(h3) {
@@ -112,8 +123,13 @@ input:not(:placeholder-shown)~.placeHolder {
 }
 
 .backButton {
+    position: absolute;
     aspect-ratio: 1;
     cursor: pointer;
-    width: 20px;
     fill: gray;
+    width: 0;
+}
+
+.slide .backButton {
+    width: 20px;
 }

@@ -8,6 +8,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements
 } from 'react-router-dom';
+import NewScoreboard from './screens/NewScoreboard';
 import Home from './screens/Home';
 import Scoreboard from './screens/Scoreboard';
 import NotFound from './screens/NotFound';
@@ -21,10 +22,11 @@ const router = createBrowserRouter(
         <Route path='/' element={null}>
             <Route path='/' element={<ProtectHome />} >
                 <Route path='/' index element={<Home />} />
+                <Route path='/szamlalo/' element={<Scoreboard />} />
+                <Route path='/ujszamlalo/' element={<NewScoreboard />} />
+                <Route path='*' element={<NotFound />} />
             </Route>
-            <Route path='/login/' element={<Login />} />
-            <Route path='/scoreboard/' element={<Scoreboard />} />
-            <Route path='*' element={<NotFound />} />
+            <Route path='/belepes/' element={<Login />} />
         </Route>
     )
 )
