@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import GoogleButton from 'react-google-button';
 import styles from './styles/Login.module.css';
-import { auth, googleAuthProvider } from '../firebase';
+import { auth, googleAuthProvider, user } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 

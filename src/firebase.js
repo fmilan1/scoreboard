@@ -1,10 +1,8 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from 'firebase/auth'
 import { getDatabase } from 'firebase/database';
-// TODO: Add SDKs for Firebase products that you want to use
+import { ref, set } from "firebase/database";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDUFtTaI2GuarO8UKsUJrEFG0tRRCnV7x8",
     authDomain: "scoreboard-df5d8.firebaseapp.com",
@@ -17,10 +15,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export default app;
 
 export const auth = getAuth();
 export const googleAuthProvider = new GoogleAuthProvider();
 
-export default app;
 
 export const db = getDatabase(app);
+export var user = JSON.parse(localStorage.getItem('user'));
+
+export function createTeamInDatabase(teamUID) {
+    // console.log(user.uid, user.email);
+    set(ref(db, `/users/${user.uid}/teams/${teamUID}`), {
+        name: 'Uj csapat',
+    });
+}

@@ -14,6 +14,7 @@ import Scoreboard from './screens/Scoreboard';
 import NotFound from './screens/NotFound';
 import ProtectHome from './components/ProtectHome';
 import Login from './screens/Login';
+import Teams from './screens/Teams';
 
 document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -22,8 +23,9 @@ const router = createBrowserRouter(
         <Route path='/' element={null}>
             <Route path='/' element={<ProtectHome />} >
                 <Route path='/' index element={<Home />} />
-                <Route path='/szamlalo/' element={<Scoreboard />} />
-                <Route path='/ujszamlalo/' element={<NewScoreboard />} />
+                <Route path='/csapat' element={<Teams />} />
+                <Route path='/szamlalo' element={<Scoreboard />} />
+                <Route path='/ujszamlalo' element={<NewScoreboard />} />
                 <Route path='*' element={<NotFound />} />
             </Route>
             <Route path='/belepes/' element={<Login />} />
