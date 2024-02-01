@@ -60,9 +60,6 @@ export default function Home() {
                     }} />
                 </header>
                 <div className={styles.contentContainer}>
-                    {/* {[1, 2, 3]} */}
-                    {/* {myTeams && myTeams.map((uid, index) => <div>{uid} {index}</div>)} */}
-                    {console.log(myTeams.map((team, index) => team))}
                     {myTeams.map((team, index) => <TeamComponent key={index} name={team.name} uid={team.uid} />)}
                 </div>
             </main>

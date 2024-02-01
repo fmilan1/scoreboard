@@ -3,9 +3,7 @@ import styles from './styles/Home.module.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { db, user } from '../firebase';
-import { uid } from 'uid';
-import { child, get, onValue, ref, set } from 'firebase/database';
-import { doc } from 'firebase/firestore';
+import { ref, onValue, set } from 'firebase/database';
 
 export default function Teams() {
 
@@ -30,7 +28,7 @@ export default function Teams() {
         onValue(selectedTeamRef, snapshot => {
             setSelectedTeamName(snapshot.exportVal().name)
         });
-    }, [])
+    }, []);
 
     function updateNameInDataBase(e) {
         set(selectedTeamRef, {
@@ -43,7 +41,7 @@ export default function Teams() {
     return (
         <>
             <header className={styles.header}>
-                <h2>{selectedTeamName}</h2>
+            <h2>Üdv{user.getUser.displayName ? `, ${user.getUser.displayName}` : `, ${user.getUser.email}`}!</h2>
                 <i className={`fa-regular fa-user ${styles.button} ${styles.profileBtn}`} onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
@@ -56,7 +54,7 @@ export default function Teams() {
                     <h2>{selectedTeamName}</h2>
                     <i className={`${styles.button} fa-solid fa-trash`} onClick={() => {
                         navigate('/');
-                        // set(selectedTeamRef, null);
+                        set(selectedTeamRef, null);
                     }}></i>
                 </header>
                 <div className={styles.contentContainer}>
