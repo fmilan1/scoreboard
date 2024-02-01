@@ -11,6 +11,7 @@ const firebaseConfig = {
     storageBucket: "scoreboard-df5d8.appspot.com",
     messagingSenderId: "89526102771",
     appId: "1:89526102771:web:8258483c1a38012ddda586",
+    databaseURL: "https://scoreboard-df5d8-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 
@@ -22,7 +23,7 @@ export const auth = getAuth();
 export const googleAuthProvider = new GoogleAuthProvider();
 
 
-export const db = getFirestore(app);
+export const db = getDatabase(app);
 export let user = {
     getUser: JSON.parse(localStorage.getItem('user')),
 

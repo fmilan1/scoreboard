@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles/Home.module.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export default function Teams() {
     const navigate = useNavigate();
 
     const selectedTeamUID = location.search.replace('?', '');
-    const selectedTeamDoc = doc(db, 'teams', selectedTeamUID);
+    const selectedTeamRef = ref(db, `/users/${user.getUser.uid}/teams/${selectedTeamUID}`);
 
     const [selectedTeamName, setSelectedTeamName] = useState(() => {
         // const name = selectedTeamRef
@@ -26,8 +26,17 @@ export default function Teams() {
 
     });
 
+    useEffect(() => {
+        onValue(selectedTeamRef, snapshot => {
+            setSelectedTeamName(snapshot.exportVal().name)
+        });
+    }, [])
+
     function updateNameInDataBase(e) {
-        
+        set(selectedTeamRef, {
+            name: e.target.value,
+            uid: selectedTeamUID
+        })
         setSelectedTeamName(e.target.value);
     }
 

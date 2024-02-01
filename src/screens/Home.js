@@ -1,35 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { child, onValue, query, ref, set } from "firebase/database";
+import { db, user } from "../firebase";
+import { onValue, ref, set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import styles from './styles/Home.module.css';
 import { uid } from "uid";
-import { user, createTeamInDatabase } from '../firebase'
 import TeamComponent from "../components/TeamComponent";
-import { doc, getDoc, setDoc, collection, where, getDocs } from "firebase/firestore";
 
 export default function Home() {
 
     const navigate = useNavigate();
 
 
-    const [userObj, setUserObj] = useState({});
+    // const [userObj, setUserObj] = useState({});
     const [myTeams, setMyTeams] = useState([]);
 
     useEffect(() => {
-        (async () => {
-            const obj = (await getDoc(doc(db, 'users', user.getUser.uid))).data();
-            setUserObj(obj);
-            const teamsRef = collection(db, 'teams');
-            if (obj.teams.length == 0) return;
-            const q = query(teamsRef, where('uid', 'in', obj.teams));
-            const teams = (await getDocs(q)).docs.map(doc => doc.data());
-            setMyTeams(teams)
-        })();
-
-
-
-
+        onValue(ref(db, `/users/${user.getUser.uid}/teams`), snapshot => {
+            if (!snapshot.exists()) return;
+            setMyTeams(Object.values(snapshot.exportVal()));
+        });
 
     }, [])
 
@@ -46,33 +35,35 @@ export default function Home() {
             </header>
             <main className={styles.mainContainer}>
                 <header className={styles.mainHeader}>
-                    <button onClick={async () => {
-                        const ref = doc(db, 'users', user.getUser.uid);
-                        setDoc(ref, {
-                            uid: user.getUser.uid,
-                            teams: []
-                        });
-
-                        // console.log((await getDoc(ref)).data());
-                    }}>haha</button>
+                    {/* <button onClick={async () => {
+                        set(ref(db, `/users/${user.getUser.uid}/teams`), {
+                            asd: 'asd',
+                        })
+                    }}>haha</button> */}
                     <h3>Saját csapatok</h3>
                     <i className={`fa-solid fa-plus ${styles.button}`} onClick={async () => {
                         const newTeamUID = uid();
-                        const updatedUserObj = { ...userObj, teams: [...userObj.teams, newTeamUID] };
-                        setDoc(doc(db, 'users', user.getUser.uid), updatedUserObj);
-
-
-                        setDoc(doc(db, 'teams', newTeamUID), {
+                        set(ref(db, `/users/${user.getUser.uid}/teams/${newTeamUID}`), {
                             uid: newTeamUID,
-                            name: 'asd',
-                        })
+                            name: 'Uj csapat'
+                        });
+                        // const updatedUserObj = { ...userObj, teams: [...userObj.teams, newTeamUID] };
+                        // setDoc(doc(db, 'users', user.getUser.uid), updatedUserObj);
 
-                        navigate(`csapat?${newTeamUID}`);
+
+                        // setDoc(doc(db, 'teams', newTeamUID), {
+                        //     uid: newTeamUID,
+                        //     name: 'asd',
+                        // })
+
+                        // navigate(`csapat?${newTeamUID}`);
                     }} />
                 </header>
                 <div className={styles.contentContainer}>
                     {/* {[1, 2, 3]} */}
-                    {myTeams && Object.keys(myTeams).map((uid, index) => <TeamComponent key={index} name={myTeams[uid].name} uid={uid} />)}
+                    {/* {myTeams && myTeams.map((uid, index) => <div>{uid} {index}</div>)} */}
+                    {console.log(myTeams.map((team, index) => team))}
+                    {myTeams.map((team, index) => <TeamComponent key={index} name={team.name} uid={team.uid} />)}
                 </div>
             </main>
             <footer className={styles.footer}>
