@@ -3,7 +3,7 @@ import styles from '../screens/styles/Scoreboard.module.css';
 import { Spring, animated, useSpring, config } from '@react-spring/web'
 
 
-export default function SlidingDigit({ data, index, lineHeight, animate, direction}) {
+export default function SlidingDigitComponent({ data, index, lineHeight, animate, direction}) {
 
     const [shownIndex, setShownIndex] = useState(data[index]);
     const [y, setY] = useState(-lineHeight);

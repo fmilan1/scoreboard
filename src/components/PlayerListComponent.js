@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from '../screens/styles/NewScoreboard.module.css';
 
-export default function PlayerList({ team, update }) {
+export default function PlayerListComponent({ team, update }) {
 
     const [thisTeam, setThisTeam] = useState(team);
 

@@ -2,11 +2,9 @@ import React from 'react';
 import styles from '../screens/styles/Home.module.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Team({name, uid}) {
+export default function TeamComponent({name, uid}) {
 
     const navigate = useNavigate();
-
-    const thisTeamObj = {};
     
     return (
         <section className={styles.team} onClick={() => {

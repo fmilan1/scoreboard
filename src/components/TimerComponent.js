@@ -12,7 +12,7 @@ String.prototype.toMMSS = function () {
     return minutes + ':' + seconds;
 }
 
-export default function Timer({ startTime, minutes }) {
+export default function TimerComponent({ startTime, minutes }) {
 
     const calcEndTime = () => {
         let tmp = new Date(startTime);

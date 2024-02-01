@@ -1,44 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { child, onValue, ref, set } from "firebase/database";
+import { child, onValue, query, ref, set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import styles from './styles/Home.module.css';
 import { uid } from "uid";
 import { user, createTeamInDatabase } from '../firebase'
-import Team from "../components/Team";
+import TeamComponent from "../components/TeamComponent";
+import { doc, getDoc, setDoc, collection, where, getDocs } from "firebase/firestore";
 
 export default function Home() {
 
     const navigate = useNavigate();
 
-    // console.log(user);
 
-    const [myTeams, setMyTeams] = useState({});
+    const [userObj, setUserObj] = useState({});
+    const [myTeams, setMyTeams] = useState([]);
 
-    
+    useEffect(() => {
+        (async () => {
+            const obj = (await getDoc(doc(db, 'users', user.getUser.uid))).data();
+            setUserObj(obj);
+            const teamsRef = collection(db, 'teams');
+            if (obj.teams.length == 0) return;
+            const q = query(teamsRef, where('uid', 'in', obj.teams));
+            const teams = (await getDocs(q)).docs.map(doc => doc.data());
+            setMyTeams(teams)
+        })();
 
-    useState(() => {
-        const teamRef = ref(db, `/users/${user.uid}/teams/`);
-        onValue(teamRef, (snapshot) => {
-            // let tmpList = [];
-            // snapshot.forEach((childSnapshot) => {
-            //     const key = childSnapshot.key;
-            //     const data = childSnapshot.val();
-            //     // console.log(data);
-            //     // tmpList.push(data);
-            // })
-            let tmp = snapshot.exportVal();
-            setMyTeams(tmp);
-            // console.log(tmp);
-            // setMyTeams([...tmpList]);
-        });
-    }, []);
+
+
+
+
+    }, [])
+
 
     return (
         <>
             <header className={styles.header}>
-                <h1>Üdv{user.displayName ? `, ${user.displayName}` : ''}!</h1>
-                <i className={`fa-regular fa-user ${styles.button} ${styles.profileBtn}`} onClick={() => {
+                <h2>Üdv{user.getUser.displayName ? `, ${user.getUser.displayName}` : `, ${user.getUser.email}`}!</h2>
+                <i className={`fa-regular fa-circle-user ${styles.button} ${styles.profileBtn}`} onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
                     navigate('/belepes/');
@@ -46,13 +46,33 @@ export default function Home() {
             </header>
             <main className={styles.mainContainer}>
                 <header className={styles.mainHeader}>
-                    <h2>Saját csapatok</h2>
-                    <i className={`fa-solid fa-plus ${styles.button}`} onClick={() => {
-                        createTeamInDatabase(uid());
+                    <button onClick={async () => {
+                        const ref = doc(db, 'users', user.getUser.uid);
+                        setDoc(ref, {
+                            uid: user.getUser.uid,
+                            teams: []
+                        });
+
+                        // console.log((await getDoc(ref)).data());
+                    }}>haha</button>
+                    <h3>Saját csapatok</h3>
+                    <i className={`fa-solid fa-plus ${styles.button}`} onClick={async () => {
+                        const newTeamUID = uid();
+                        const updatedUserObj = { ...userObj, teams: [...userObj.teams, newTeamUID] };
+                        setDoc(doc(db, 'users', user.getUser.uid), updatedUserObj);
+
+
+                        setDoc(doc(db, 'teams', newTeamUID), {
+                            uid: newTeamUID,
+                            name: 'asd',
+                        })
+
+                        navigate(`csapat?${newTeamUID}`);
                     }} />
                 </header>
-                <div className={styles.teamsContainer}>
-                    {myTeams && Object.keys(myTeams).map((uid, index) => <Team key={index} name={myTeams[uid].name} uid={uid}/>)}
+                <div className={styles.contentContainer}>
+                    {/* {[1, 2, 3]} */}
+                    {myTeams && Object.keys(myTeams).map((uid, index) => <TeamComponent key={index} name={myTeams[uid].name} uid={uid} />)}
                 </div>
             </main>
             <footer className={styles.footer}>

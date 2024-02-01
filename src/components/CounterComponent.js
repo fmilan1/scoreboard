@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import styles from '../screens/styles/Scoreboard.module.css'
-import SlidingDigit from './SlidingDigit'
-import BottomSheet from './BottomSheet';
+import SlidingDigit from './SlidingDigitComponent'
+import BottomSheet from './BottomSheetComponent';
 import { useSwipeable } from 'react-swipeable';
 
-export default function Counter({ team }) {
+export default function CounterComponent({ team }) {
 
     const [firstCall, setFirstCall] = useState(true);
 

@@ -5,42 +5,36 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { db, user } from '../firebase';
 import { uid } from 'uid';
 import { child, get, onValue, ref, set } from 'firebase/database';
+import { doc } from 'firebase/firestore';
 
 export default function Teams() {
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const thisTeamUID = location.search.replace('?', '');
-    const thisTeamRef = ref(db, `/users/${user.uid}/teams/${thisTeamUID}`);
-    const [teamName, setTeamName] = useState(() => {
-        if (!thisTeamRef) return 'Nem található ez a csapat';
+    const selectedTeamUID = location.search.replace('?', '');
+    const selectedTeamDoc = doc(db, 'teams', selectedTeamUID);
 
-
-        // const asd = get(child(db, `/users/${user.uid}/teams/`)).then((snapshot) => {return snapshot.val()});
+    const [selectedTeamName, setSelectedTeamName] = useState(() => {
+        // const name = selectedTeamRef
+        // console.log(name);
+        
+        
+        return 'Nem található ez a csapat';
 
         
-        // console.log(asd);
-        let name = '';
-        onValue(thisTeamRef, (snapshot) => { name = snapshot.val().name });
-        return name;
+
     });
 
-    // console.log(thisUID);
-    // console.log(thisTeamRef);
-
     function updateNameInDataBase(e) {
-        console.log(e.target.value);
-        set(thisTeamRef, {
-            name: e.target.value
-        });
-        setTeamName(e.target.value);
+        
+        setSelectedTeamName(e.target.value);
     }
 
     return (
         <>
             <header className={styles.header}>
-                <h1>Üdv{user.displayName ? `, ${user.displayName}` : ''}!</h1>
+                <h2>{selectedTeamName}</h2>
                 <i className={`fa-regular fa-user ${styles.button} ${styles.profileBtn}`} onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
@@ -49,9 +43,14 @@ export default function Teams() {
             </header>
             <main className={styles.mainContainer}>
                 <header className={styles.mainHeader}>
-                    <h2>{teamName}</h2>
+                    <i className={`${styles.button} fa-solid fa-arrow-left`} onClick={() => navigate('../')}></i>
+                    <h2>{selectedTeamName}</h2>
+                    <i className={`${styles.button} fa-solid fa-trash`} onClick={() => {
+                        navigate('/');
+                        // set(selectedTeamRef, null);
+                    }}></i>
                 </header>
-                <div>
+                <div className={styles.contentContainer}>
                     <input type='text' onChange={updateNameInDataBase} />
                 </div>
             </main>
@@ -59,5 +58,5 @@ export default function Teams() {
                 <h6>fazekas.milan1@gmail.com</h6>
             </footer>
         </>
-    )
+    );
 }

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import styles from './styles/Scoreboard.module.css';
-import Counter from '../components/Counter';
-import Timer from '../components/Timer';
+import Counter from '../components/CounterComponent';
+import Timer from '../components/TimerComponent';
 
 function Scoreboard() {
 

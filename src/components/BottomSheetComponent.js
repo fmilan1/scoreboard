@@ -17,7 +17,7 @@ const variants = {
     }
 }
 
-export default function BottomSheet({ visible, players, hide }) {
+export default function BottomSheetComponent({ visible, players, hide }) {
 
     const [assistIndex, setAssistIndex] = useState(-1);
     const [scorerIndex, setScorerIndex] = useState(-1);

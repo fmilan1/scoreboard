@@ -12,7 +12,7 @@ import NewScoreboard from './screens/NewScoreboard';
 import Home from './screens/Home';
 import Scoreboard from './screens/Scoreboard';
 import NotFound from './screens/NotFound';
-import ProtectHome from './components/ProtectHome';
+import ProtectHome from './components/ProtectHomeComponent';
 import Login from './screens/Login';
 import Teams from './screens/Teams';
 

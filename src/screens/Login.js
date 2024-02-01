@@ -4,6 +4,7 @@ import styles from './styles/Login.module.css';
 import { auth, googleAuthProvider, user } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import InputComponent from '../components/InputComponent';
 
 const Errors = {
     EmailAlreadyInUse: 'auth/email-already-in-use',
@@ -18,7 +19,7 @@ export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
     const [showForm, setShowForm] = useState(false);
     const [error, setError] = useState('');
     const [showError, setShowError] = useState(false);
@@ -48,19 +49,16 @@ export default function Login() {
     async function signInWithGoogle() {
         try {
             const result = await signInWithPopup(auth, googleAuthProvider);
-            localStorage.setItem('token', result.user.accessToken);
-            localStorage.setItem('user', JSON.stringify(result.user));
+            user.setUser = result.user;
             navigate('/');
         } catch (error) {
-            console.log(error);
         }
     }
 
     async function createUserWithEmail() {
         try {
             const credential = await createUserWithEmailAndPassword(auth, email, password);
-            localStorage.setItem('token', credential.user.accessToken);
-            localStorage.setItem('user', JSON.stringify(credential.user));
+            user.setUser = credential.user;
             navigate('/');
         } catch (error) {
             handleErrors(error);
@@ -70,11 +68,9 @@ export default function Login() {
     async function singnInWithEmail() {
         try {
             const credential = await signInWithEmailAndPassword(auth, email, password);
-            localStorage.setItem('token', credential.user.accessToken);
-            localStorage.setItem('user', JSON.stringify(credential.user));
+            user.setUser = credential.user;
             navigate('/');
         } catch (error) {
-            console.log(error.code);
             handleErrors(error);
         }
     }
@@ -98,31 +94,21 @@ export default function Login() {
 
                         {showError && <div className={styles.errorLabel}>{error}</div>}
 
-                        <div className={styles.input}>
-                            <input type='email' required placeholder='' value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <span className={styles.placeHolder} >Email</span>
-                        </div>
-
-                        <div className={styles.input}>
-                            <input type='password' required placeholder='' value={password} onChange={(e) => setPassword(e.target.value)} />
-                            <span className={styles.placeHolder} >Jelszó</span>
-                        </div>
+                        <InputComponent type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeHolder='Email' />
+                        <InputComponent type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeHolder='Jelszó' />
 
                         {isSigningUp &&
-                            <div className={styles.input}>
-                                <input type='password' required placeholder='' value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)} />
-                                <span className={styles.placeHolder} >Jelszó újra</span>
-                            </div>
+                            <InputComponent type='password' value={rePassword} onChange={(e) => setRePassword(e.target.value)} placeHolder='Jelszó újra' />
                         }
 
-                        <button type='submit' >{!isSigningUp ? 'Bejelentkezés' : 'Regisztráció'}</button>
+                        <button type='submit' >{!isSigningUp ? 'Bejelentkezés' : 'Regisztrálás'}</button>
 
                         <div className={styles.switchButton} onClick={() => {
                             setIsSigningUp(!isSigningUp);
                             setShowError(false);
                             setPassword('');
-                            setRepeatPassword('');
-                        }}>{isSigningUp ? 'Bejelentkezés' : 'Regisztráció'}</div>
+                            setRePassword('');
+                        }}>{isSigningUp ? 'Bejelentkezés' : 'Regisztrálás'}</div>
 
                     </div>
                 </form>

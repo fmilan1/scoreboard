@@ -1,5 +1,5 @@
 import styles from './styles/NewScoreboard.module.css'
-import PlayerList from '../components/PlayerList';
+import PlayerList from '../components/PlayerListComponent';
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
