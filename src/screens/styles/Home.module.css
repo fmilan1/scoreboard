@@ -7,7 +7,6 @@ body:has(.mainContainer) {
     max-height: 100dvh;
     padding-inline: 20px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    /* display: grid; */
     flex-grow: 1;
 }
 
@@ -17,7 +16,6 @@ body:has(.mainContainer) {
     place-items: center;
     text-align: center;
     color: white;
-    /* background-color: aqua; */
     height: 60px;
 }
 
@@ -111,6 +109,11 @@ body:has(.mainContainer) {
     flex-grow: 1;
 }
 
+.contentContainer > * {
+    /* width: 60%; */
+    /* justify-self: center; */
+}
+
 .contentContainer::-webkit-scrollbar {
     display: none;
 }
@@ -123,8 +126,6 @@ body:has(.mainContainer) {
 .teamLogo {
     height: 100%;
 }
-
-.contentContainer 
 
 @media only screen and (min-width: 600px) {
     .contentContainer > * {

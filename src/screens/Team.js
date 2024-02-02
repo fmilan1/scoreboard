@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { db, user } from '../firebase';
 import { ref, onValue, set } from 'firebase/database';
 
-export default function Teams() {
+export default function Team() {
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,11 +16,11 @@ export default function Teams() {
     const [selectedTeamName, setSelectedTeamName] = useState(() => {
         // const name = selectedTeamRef
         // console.log(name);
-        
-        
+
+
         return 'Nem található ez a csapat';
 
-        
+
 
     });
 
@@ -34,14 +34,14 @@ export default function Teams() {
         set(selectedTeamRef, {
             name: e.target.value,
             uid: selectedTeamUID
-        })
+        });
         setSelectedTeamName(e.target.value);
     }
 
     return (
         <>
             <header className={styles.header}>
-            <h2>Üdv{user.getUser.displayName ? `, ${user.getUser.displayName}` : `, ${user.getUser.email}`}!</h2>
+                <h2>Üdv{user.getUser.displayName ? `, ${user.getUser.displayName}` : `, ${user.getUser.email}`}!</h2>
                 <i className={`fa-regular fa-user ${styles.button} ${styles.profileBtn}`} onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');

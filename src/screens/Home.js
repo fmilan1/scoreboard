@@ -35,11 +35,6 @@ export default function Home() {
             </header>
             <main className={styles.mainContainer}>
                 <header className={styles.mainHeader}>
-                    {/* <button onClick={async () => {
-                        set(ref(db, `/users/${user.getUser.uid}/teams`), {
-                            asd: 'asd',
-                        })
-                    }}>haha</button> */}
                     <h3>Saját csapatok</h3>
                     <i className={`fa-solid fa-plus ${styles.button}`} onClick={async () => {
                         const newTeamUID = uid();
@@ -47,16 +42,6 @@ export default function Home() {
                             uid: newTeamUID,
                             name: 'Uj csapat'
                         });
-                        // const updatedUserObj = { ...userObj, teams: [...userObj.teams, newTeamUID] };
-                        // setDoc(doc(db, 'users', user.getUser.uid), updatedUserObj);
-
-
-                        // setDoc(doc(db, 'teams', newTeamUID), {
-                        //     uid: newTeamUID,
-                        //     name: 'asd',
-                        // })
-
-                        // navigate(`csapat?${newTeamUID}`);
                     }} />
                 </header>
                 <div className={styles.contentContainer}>
@@ -66,6 +51,6 @@ export default function Home() {
             <footer className={styles.footer}>
                 <h6>fazekas.milan1@gmail.com</h6>
             </footer>
-        </>
+    </>
     )
 }
