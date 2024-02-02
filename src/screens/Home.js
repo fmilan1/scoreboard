@@ -10,8 +10,6 @@ export default function Home() {
 
     const navigate = useNavigate();
 
-
-    // const [userObj, setUserObj] = useState({});
     const [myTeams, setMyTeams] = useState([]);
 
     useEffect(() => {
@@ -20,7 +18,7 @@ export default function Home() {
             setMyTeams(Object.values(snapshot.exportVal()));
         });
 
-    }, [])
+    }, []);
 
 
     return (
@@ -51,6 +49,6 @@ export default function Home() {
             <footer className={styles.footer}>
                 <h6>fazekas.milan1@gmail.com</h6>
             </footer>
-    </>
-    )
+        </>
+    );
 }

@@ -13,7 +13,7 @@ export default function Team() {
     const selectedTeamUID = location.search.replace('?', '');
     const selectedTeamRef = ref(db, `/users/${user.getUser.uid}/teams/${selectedTeamUID}`);
 
-    const [selectedTeamName, setSelectedTeamName] = useState(() => {
+    const [selectedTeamObj, setSelectedTeamObj] = useState(() => {
         // const name = selectedTeamRef
         // console.log(name);
 
@@ -26,7 +26,7 @@ export default function Team() {
 
     useEffect(() => {
         onValue(selectedTeamRef, snapshot => {
-            setSelectedTeamName(snapshot.exportVal().name)
+            setSelectedTeamObj(snapshot.exportVal());
         });
     }, []);
 
@@ -35,7 +35,7 @@ export default function Team() {
             name: e.target.value,
             uid: selectedTeamUID
         });
-        setSelectedTeamName(e.target.value);
+        setSelectedTeamObj({...selectedTeamObj, name: e.target.value});
     }
 
     return (
@@ -51,7 +51,7 @@ export default function Team() {
             <main className={styles.mainContainer}>
                 <header className={styles.mainHeader}>
                     <i className={`${styles.button} fa-solid fa-arrow-left`} onClick={() => navigate('../')}></i>
-                    <h2>{selectedTeamName}</h2>
+                    <h2>{selectedTeamObj.name}</h2>
                     <i className={`${styles.button} fa-solid fa-trash`} onClick={() => {
                         navigate('/');
                         set(selectedTeamRef, null);
